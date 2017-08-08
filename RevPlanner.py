@@ -22,9 +22,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 """
 class RevPlanner:
-    def __init__(self, dailyRevs, investments, ranks):
+    def __init__(self, dailyRevs, ranks):
+        if not dailyRevs:
+            raise ValueError('dailyRevs list can not be empty !')
+
+        if not ranks:
+            raise ValueError('ranks list can not be empty !')
+
         self.dailyRevs = dailyRevs
-        self.investments = investments
         self.ranks = ranks
 
     def planRev(self):
@@ -32,15 +37,11 @@ class RevPlanner:
         currentRevs = []
         
         for rev, rank in zip(self.dailyRevs, self.ranks):
-             print("%.2f - %d" % (rev, rank))
              for i in range(rank):
                  currentRevs.append(rev)
              revSpreadOverPeriods.append(currentRevs)
              currentRevs = []
-         
-        print('revSpreadOverPeriods')    
-        print(revSpreadOverPeriods)
-        
+
         revByPeriod = self._aggregateRevByPeriod(revSpreadOverPeriods)
 
         return revByPeriod
@@ -55,12 +56,12 @@ class RevPlanner:
                 if len(revList) - 1 >= i:
                     revforPeriod += float(revList[i])
             revByPeriod.append(revforPeriod)
+
         return revByPeriod
 
         
 '''
 dailyRevs = []
-investments = []
 ranks = []
 
 rp = RevPlanner(dailyRevs, investments, ranks)
@@ -68,50 +69,9 @@ revByPeriod = rp.planRev()
 print(revByPeriod)
 '''
 
-dailyRevs = [5]
-investments = []
-ranks = [1]
-
-rp = RevPlanner(dailyRevs, investments, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
-
 dailyRevs = [5, 20]
-investments = []
-ranks = [1, 1]
-
-rp = RevPlanner(dailyRevs, investments, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
-
-dailyRevs = [5, 20]
-investments = []
 ranks = [2, 3]
 
-rp = RevPlanner(dailyRevs, investments, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
-
-dailyRevs = [5, 20]
-investments = []
-ranks = [1, 0]
-
-rp = RevPlanner(dailyRevs, investments, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
-
-dailyRevs = [5, 20]
-investments = []
-ranks = [1]
-
-rp = RevPlanner(dailyRevs, investments, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
-
-dailyRevs = [5, 20]
-investments = []
-ranks = [6, 2]
-
-rp = RevPlanner(dailyRevs, investments, ranks)
+rp = RevPlanner(dailyRevs, ranks)
 revByPeriod = rp.planRev()
 print(revByPeriod)
