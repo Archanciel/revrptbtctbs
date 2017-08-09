@@ -27,7 +27,7 @@ class RevPlanner:
             raise ValueError('dailyRevs list can not be empty !')
 
         if not ranks:
-            raise ValueError('ranks list can not be empty !')
+            raise ValueError("ranks list can not be empty !")
 
         self.dailyRevs = dailyRevs
         self.ranks = ranks
@@ -59,19 +59,3 @@ class RevPlanner:
 
         return revByPeriod
 
-        
-'''
-dailyRevs = []
-ranks = []
-
-rp = RevPlanner(dailyRevs, investments, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
-'''
-
-dailyRevs = [5, 20]
-ranks = [2, 3]
-
-rp = RevPlanner(dailyRevs, ranks)
-revByPeriod = rp.planRev()
-print(revByPeriod)
